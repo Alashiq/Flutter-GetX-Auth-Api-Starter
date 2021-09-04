@@ -6,8 +6,9 @@ class SharedApi {
   String imageUrl="https://cloudsoft.ly/";
   String baseUrl="https://cloudsoft.ly/api/admin/";
 
-  String getToken(){
+  String? getToken(){
     AuthController authController = Get.find();
-    return authController.token;
+    String? token=   authController.user!.token;
+    return token;
   }
 }

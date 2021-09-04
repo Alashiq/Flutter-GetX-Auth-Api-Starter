@@ -7,11 +7,11 @@ class NewsController extends GetxController{
 
   int n =2;
 
-  void change(){
-    n=n+authController.count;
-    print(n);
-    update();
-  }
+  // void change(){
+  //   n=n+authController.count;
+  //   print(n);
+  //   update();
+  // }
 
 
 }

@@ -8,7 +8,8 @@ class AuthApi extends SharedApi {
   // Login API
   Future<UserModel?> loginAPI(String username, String password) async {
     try {
-      print(getToken());
+      // String? token = getToken();
+      // if (token != null) print(token);
       var jsonData;
       var data = await http.post(
         Uri.parse(baseUrl + 'login'),
@@ -23,7 +24,7 @@ class AuthApi extends SharedApi {
         return UserModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
-      return null;
+      return UserModel.fromJson({"status": 404});
     }
   }
 }

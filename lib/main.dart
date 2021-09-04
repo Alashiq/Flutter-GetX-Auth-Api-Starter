@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterauthgetxstarter/View/Screens/Home/home_screen.dart';
-import 'package:flutterauthgetxstarter/View/Screens/Login/home_screen.dart';
+import 'package:flutterauthgetxstarter/View/Screens/Login/login_screen.dart';
 import 'package:flutterauthgetxstarter/utils/app_binding.dart';
 import 'package:get/get.dart';
 

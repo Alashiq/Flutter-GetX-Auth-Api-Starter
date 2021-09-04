@@ -6,31 +6,58 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   UserModel? user;
-  String token="sdfsdf";
-  int count = 5;
 
-  void plus() {
-    count++;
-    print(count);
-    update();
-  }
+  bool loginScreen=false;
 
-  void mins() {
-    count--;
-  }
+
 
   Future login(String usernameIn, String passwordIn) async {
+    loginScreen=false;
+    update();
     showLoading();
     user = await AuthApi().loginAPI(usernameIn, passwordIn);
     stopLoading();
-    if (user == null) {
+    if (user!.status == 404) {
       print("no internet 404");
-      return 0;
-    }
-    if (user!.status == 200) {
+      loginScreen=true;
+      update();
+    }else if (user!.status == 200) {
       print("success");
       print(user!.name);
+      Get.toNamed("/home");
     } else
       print("someting wrong 400");
+
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  // String token="sdfsdf";
+  // int count = 5;
+
+  // void plus() {
+  //   count++;
+  //   print(count);
+  //   update();
+  // }
+
+  // void mins() {
+  //   count--;
+  // }
