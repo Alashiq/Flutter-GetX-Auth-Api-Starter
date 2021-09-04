@@ -1,0 +1,29 @@
+import 'dart:convert';
+
+import 'package:flutterauthgetxstarter/Modular/Auth/Models/user.dart';
+import 'package:flutterauthgetxstarter/Utils/api.dart';
+import 'package:http/http.dart' as http;
+
+class AuthApi extends SharedApi {
+  // Login API
+  Future<UserModel?> loginAPI(String username, String password) async {
+    try {
+      print(getToken());
+      var jsonData;
+      var data = await http.post(
+        Uri.parse(baseUrl + 'login'),
+        body: {'username': username, 'password': password},
+      );
+      print(data.statusCode);
+      if (data.statusCode == 200) {
+        jsonData = json.decode(data.body);
+        jsonData['user']['status'] = 200;
+        return UserModel.fromJson(jsonData['user']);
+      } else {
+        return UserModel.fromJson({"status": data.statusCode});
+      }
+    } on Exception catch (_) {
+      return null;
+    }
+  }
+}
