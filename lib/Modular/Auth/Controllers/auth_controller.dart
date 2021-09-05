@@ -1,6 +1,5 @@
 import 'package:flutterauthgetxstarter/Modular/Auth/Models/user.dart';
 import 'package:flutterauthgetxstarter/Modular/Auth/Services/auth_api.dart';
-import 'package:flutterauthgetxstarter/Utils/shared_preferences.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/loading/loading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';

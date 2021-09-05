@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterauthgetxstarter/Modular/Auth/Controllers/auth_controller.dart';
-import 'package:flutterauthgetxstarter/Modular/Auth/Controllers/news_controller.dart';
+import 'package:flutterauthgetxstarter/Modular/Reviews/Controller/review_controller.dart';
+import 'package:flutterauthgetxstarter/View/Widgets/AutoLoad/auto_load.dart';
 import 'package:get/get.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -8,7 +9,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("all");
-    return Scaffold(
+    return GetBuilder<ReviewController>(builder: (controller)=> AutoLoad(onInit:controller.loadReviews, 
+    child: Scaffold(
       appBar: AppBar(
         title: Text("Home Screen"),
         actions: [
@@ -28,28 +30,9 @@ class HomeScreen extends StatelessWidget {
             GetBuilder<AuthController>(
               builder: (controller) => Text("value ${controller.user!.name}"),
             ),
-            // GetBuilder<AuthController>(
-            //   builder: (controller) => RaisedButton(onPressed: () {
-            //     controller.plus();
-            //     print("plus");
-            //   }),
-            // ),
-            // GetBuilder<NewsController>(
-            //   builder: (controller) => Text("value ${controller.n}"),
-            // ),
-            // GetBuilder<NewsController>(
-            //   builder: (controller) => RaisedButton(onPressed: () {
-            //     controller.change();
-            //   }),
-            // ),
-            // GetBuilder<AuthController>(
-            //     builder: (controller) => ElevatedButton(
-            //         onPressed: () async {
-            //           await controller.login("Sdfs","sdfsd");
-            //           print("finish");
-            //         },
-            //         child: Text("Login"))),
           ],
+        ),
+        ),
         ),
       ),
     );
