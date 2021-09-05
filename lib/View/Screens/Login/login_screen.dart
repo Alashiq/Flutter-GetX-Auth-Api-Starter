@@ -7,6 +7,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final usernameIn = TextEditingController();
     final passwordIn = TextEditingController();
+    usernameIn.text="alashiq";
+    passwordIn.text="123123";
     return Scaffold(
       appBar: AppBar(
         title: Text("Login Screen"),

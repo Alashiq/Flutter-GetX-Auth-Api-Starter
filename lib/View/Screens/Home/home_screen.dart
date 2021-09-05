@@ -11,6 +11,16 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Screen"),
+        actions: [
+          GetBuilder<AuthController>(
+            builder: (controller) => IconButton(
+              onPressed: () async{
+                await controller.logout();
+              },
+              icon: Icon(Icons.logout),
+            ),
+          )
+        ],
       ),
       body: Container(
         child: Column(
