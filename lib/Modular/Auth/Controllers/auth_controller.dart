@@ -14,9 +14,7 @@ class AuthController extends GetxController {
   Future login(String usernameIn, String passwordIn) async {
     loginScreen = false;
     update();
-    showLoading();
     user = await AuthApi().loginAPI(usernameIn, passwordIn);
-    stopLoading();
     if (user!.status == 200) {
       await box.write("token", user!.token);
       Get.offAndToNamed("/home");
@@ -30,11 +28,9 @@ class AuthController extends GetxController {
   autoLogin() async {
     startScreen = false;
     update();
-    showLoading();
     //await Future.delayed(Duration(seconds: 2));
     if (box.hasData("token") == true) {
       user = await AuthApi().checkTokenApi(box.read("token"));
-      stopLoading();
       print(user!.status);
       if (user!.status == 200) {
         print(user!.token);
@@ -52,7 +48,6 @@ class AuthController extends GetxController {
         Get.offAndToNamed("/login");
       }
     } else {
-      stopLoading();
       Get.offAndToNamed("/login");
     }
   }

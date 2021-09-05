@@ -10,7 +10,9 @@ class ReviewListModel {
   factory ReviewListModel.fromJson(Map<String, dynamic> jsonData) {
     return ReviewListModel(
         status: jsonData['status'],
-        items: jsonData['data']
+        items:  jsonData['items']
+              .map<ReviewModel>((data) => ReviewModel.fromJson(data))
+              .toList()
         );
   }
 }
