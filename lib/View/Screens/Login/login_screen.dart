@@ -5,24 +5,24 @@ import 'package:get/get.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final usernameIn = TextEditingController();
+    final phoneIn = TextEditingController();
     final passwordIn = TextEditingController();
-    usernameIn.text = "alashiq";
-    passwordIn.text = "123123";
+    phoneIn.text = "0926503011";
+    passwordIn.text = "123456";
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text("Login"),
       ),
       body: Container(
-        margin:EdgeInsets.all(20),
+        margin: EdgeInsets.all(20),
         alignment: Alignment.center,
         child: GetBuilder<AuthController>(
           builder: (controller) => Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextField(
-                controller: usernameIn,
+                controller: phoneIn,
               ),
               TextField(
                 controller: passwordIn,
@@ -31,7 +31,7 @@ class LoginScreen extends StatelessWidget {
                   builder: (controller) => ElevatedButton(
                       onPressed: () async {
                         await controller.login(
-                            usernameIn.text, passwordIn.text);
+                            phoneIn.text, passwordIn.text);
                       },
                       child: Text("Login"))),
             ],

@@ -2,8 +2,8 @@ import 'package:flutterauthgetxstarter/Modular/Auth/Controllers/auth_controller.
 import 'package:get/get.dart';
 
 class SharedApi {
-  String imageUrl = "https://cloudsoft.ly/";
-  String baseUrl = "https://cloudsoft.ly/api/admin/";
+  String imageUrl = "http://192.168.0.103:8000/";
+  String baseUrl = "http://192.168.0.103:8000/api/app/";
 
   Map<String, String> getToken() {
     AuthController authController = Get.find();

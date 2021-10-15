@@ -9,22 +9,23 @@ import 'package:http/http.dart' as http;
 
 class AuthApi extends SharedApi {
   // Login API
-  Future<UserModel?> loginAPI(String username, String password) async {
+  Future<UserModel?> loginAPI(String phone, String password) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + 'login'),
-        body: {'username': username, 'password': password},
+        Uri.parse(baseUrl + 'user/login'),
+        body: {'phone': phone, 'password': password},
       );
       stopLoading();
       print(data.statusCode);
+      jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData = json.decode(data.body);
+        jsonData['user']['phone'] = phone;
         jsonData['user']['status'] = 200;
         return UserModel.fromJson(jsonData['user']);
       } else {
-        showErrorMessage("إسم المستخدم او كلمة المرور غير صحيحة");
+        showErrorMessage(jsonData['message']);
         return UserModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -42,7 +43,8 @@ class AuthApi extends SharedApi {
       };
       var jsonData;
       showLoading();
-      var data = await http.get(Uri.parse(baseUrl + 'auth'), headers: headers);
+      var data =
+          await http.get(Uri.parse(baseUrl + 'user/auth'), headers: headers);
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
@@ -60,6 +62,29 @@ class AuthApi extends SharedApi {
       stopLoading();
       showInternetMessage("تحقق من إتصالك بالإنترنت");
       return UserModel.fromJson({"status": 404});
+    }
+  }
+
+// Change Password API
+  Future<int> chagnePasswordAPI(String oldPassword, String newPassword) async {
+    try {
+      showLoading();
+      var data = await http.put(Uri.parse(baseUrl + 'user'),
+          body: {'oldPassword': oldPassword, 'newPassword': newPassword},
+          headers: getToken());
+      stopLoading();
+      var jsonData = json.decode(data.body);
+
+      if (data.statusCode == 200) {
+        showSuccessMessage(jsonData['message']);
+      } else {
+        showErrorMessage(jsonData['message']);
+      }
+      return data.statusCode;
+    } on Exception catch (_) {
+      stopLoading();
+      showInternetMessage("تحقق من إتصالك بالإنترنت");
+      return 404;
     }
   }
 }

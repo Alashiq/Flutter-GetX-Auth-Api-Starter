@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterauthgetxstarter/Modular/Auth/Controllers/auth_controller.dart';
 import 'package:flutterauthgetxstarter/Modular/Reviews/Controller/review_controller.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/AutoLoad/auto_load.dart';
+import 'package:flutterauthgetxstarter/View/Widgets/BottomBar/bottom_bar.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/NoNetwork/no_network.dart';
 import 'package:get/get.dart';
 
@@ -53,6 +54,7 @@ class HomeScreen extends StatelessWidget {
                     onInit: controller.loadReviews,
                   ),
           ),
+          bottomNavigationBar: BottomMenu(active: 1,),
         ),
       ),
     );
