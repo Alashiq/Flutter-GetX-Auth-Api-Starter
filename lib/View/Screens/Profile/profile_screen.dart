@@ -10,9 +10,10 @@ class ProfileScreen extends StatelessWidget {
   // AuthController authController = Get.find();
   @override
   Widget build(BuildContext context) {
+    final firstNameIn = TextEditingController();
+    final lastNameIn = TextEditingController();
     return AutoLoad(
-      onInit: () {
-      },
+      onInit: () {},
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -49,21 +50,70 @@ class ProfileScreen extends StatelessWidget {
                                 width: 120,
                               ),
                       ),
-                     controller.showUserPhoto == null? ElevatedButton(
-                        onPressed: () async {
-                          await controller.selectPhoto();
-                        },
-                        child: Text("Photo"),
-                      ):ElevatedButton(
-                        onPressed: () async {
-                          await controller.changePhoto();
-                        },
-                        child: Text("upload"),
-                      ),
+                      controller.showUserPhoto == null
+                          ? ElevatedButton(
+                              onPressed: () async {
+                                await controller.selectPhoto();
+                              },
+                              child: Text("Photo"),
+                            )
+                          : ElevatedButton(
+                              onPressed: () async {
+                                await controller.changePhoto();
+                              },
+                              child: Text("upload"),
+                            ),
                       SizedBox(height: 50),
-                      Text(controller.user!.firstname! +
-                          " " +
-                          controller.user!.lastname!),
+                      controller.changeName == false
+                          ? Row(
+                              children: [
+                                Text(controller.user!.firstname! +
+                                    " " +
+                                    controller.user!.lastname!),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      controller.changeName=true;
+                                      controller.update();
+                                    }, child: Text("edit"))
+                              ],
+                            )
+                          : Container(
+                              height: 120,
+                              width: 280,
+                              child: Container(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        controller: firstNameIn,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: lastNameIn,
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: GetBuilder<AuthController>(
+                                          builder: (controller) =>
+                                              ElevatedButton(
+                                                  onPressed: () async {
+                                                   bool val= await controller
+                                                        .changeUserName(
+                                                            firstNameIn.text,
+                                                            lastNameIn.text);
+                                                            if(val==true){
+                                                              firstNameIn.text="";
+                                                              lastNameIn.text="";
+                                                            }
+                                                  },
+                                                  child: Text("update"))),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                       SizedBox(height: 50),
                       Text(controller.user!.phone!),
                       SizedBox(height: 50),

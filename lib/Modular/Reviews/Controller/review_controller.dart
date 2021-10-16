@@ -25,7 +25,7 @@ class ReviewController extends GetxController {
       homeScreen = true;
       update();
     } else if (reviews!.status == 401) {
-      print("expired token 401");
+      print("expired token 401nn");
       box.remove("token");
       Get.offAndToNamed("/login");
     } else {

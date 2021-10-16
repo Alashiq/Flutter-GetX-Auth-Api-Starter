@@ -10,7 +10,7 @@ class SharedApi {
     String? token = authController.user!.token;
     if (token != null)
       return {
-        "Authorization": "Bearer " + token ,
+        "Authorization": "Bearer " + token,
       };
     return {
       "Authorization": "Bearer " + "BadToken",

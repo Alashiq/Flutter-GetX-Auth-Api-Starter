@@ -91,7 +91,7 @@ class AuthApi extends SharedApi {
   }
 
   // Change User Photo API
-  Future<UserModel> chagnePhotoAPI(image) async {
+  Future<UserModel> changePhotoAPI(image) async {
     try {
       showLoading();
       var request =
@@ -118,4 +118,30 @@ class AuthApi extends SharedApi {
       return UserModel.fromJson({"status": 404});
     }
   }
+
+
+  // Change Password API
+  Future<int> chagneNameAPI(String firstName, String lastName) async {
+    try {
+      showLoading();
+      var data = await http.put(Uri.parse(baseUrl + 'user'),
+          body: {'firstname': firstName, 'lastname': lastName},
+          headers: getToken());
+      stopLoading();
+      var jsonData = json.decode(data.body);
+
+      if (data.statusCode == 200) {
+        showSuccessMessage(jsonData['message']);
+      } else {
+        showErrorMessage(jsonData['message']);
+      }
+      return data.statusCode;
+    } on Exception catch (_) {
+      stopLoading();
+      showInternetMessage("تحقق من إتصالك بالإنترنت");
+      return 404;
+    }
+  }
+
+
 }

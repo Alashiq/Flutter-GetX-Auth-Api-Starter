@@ -2,8 +2,8 @@
 class UserModel {
   final int? status;  // 200 - 204 - 400 - 404
   final String? phone;
-  final String? firstname;
-  final String? lastname;
+  String? firstname;
+  String? lastname;
   final int? gender;  // 1 mail - 2 fmail
   String? photo;
   final String? token;
