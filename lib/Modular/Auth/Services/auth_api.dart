@@ -5,6 +5,8 @@ import 'package:flutterauthgetxstarter/View/Widgets/loading/loading.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/message/errorMessage.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/message/internetMessage.dart';
 import 'package:flutterauthgetxstarter/View/Widgets/message/successMessage.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 
 class AuthApi extends SharedApi {
@@ -85,6 +87,35 @@ class AuthApi extends SharedApi {
       stopLoading();
       showInternetMessage("تحقق من إتصالك بالإنترنت");
       return 404;
+    }
+  }
+
+  // Change User Photo API
+  Future<UserModel> chagnePhotoAPI(image) async {
+    try {
+      showLoading();
+      var request =
+          http.MultipartRequest('POST', Uri.parse(baseUrl + 'user/photo'));
+      request.headers.addAll(getToken());
+      request.files.add(await http.MultipartFile.fromPath('file', image.path));
+      var response = await request.send();
+      var data = await http.Response.fromStream(response);
+      stopLoading();
+      var jsonData = json.decode(data.body);
+
+      if (data.statusCode == 200) {
+        showSuccessMessage(jsonData['message']);
+        jsonData['status'] = data.statusCode;
+        return UserModel.fromJson(jsonData);
+      } else {
+        showErrorMessage(jsonData['message']);
+        jsonData['status'] = data.statusCode;
+        return UserModel.fromJson(jsonData);
+      }
+    } on Exception catch (_) {
+      stopLoading();
+      showInternetMessage("تحقق من إتصالك بالإنترنت");
+      return UserModel.fromJson({"status": 404});
     }
   }
 }

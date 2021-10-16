@@ -5,7 +5,7 @@ class UserModel {
   final String? firstname;
   final String? lastname;
   final int? gender;  // 1 mail - 2 fmail
-  final String? photo;
+  String? photo;
   final String? token;
 
 

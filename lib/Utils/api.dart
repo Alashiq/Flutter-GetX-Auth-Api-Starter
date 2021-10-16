@@ -2,7 +2,7 @@ import 'package:flutterauthgetxstarter/Modular/Auth/Controllers/auth_controller.
 import 'package:get/get.dart';
 
 class SharedApi {
-  String imageUrl = "http://192.168.0.103:8000/";
+  String imageUrl = "http://192.168.0.103:8000";
   String baseUrl = "http://192.168.0.103:8000/api/app/";
 
   Map<String, String> getToken() {

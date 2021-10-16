@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutterauthgetxstarter/Modular/Auth/Models/user.dart';
 import 'package:flutterauthgetxstarter/Modular/Auth/Services/auth_api.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AuthController extends GetxController {
   UserModel? user;
   final box = GetStorage();
+  
+  File? showUserPhoto;
 
   bool loginScreen = false;
   bool startScreen = false;
@@ -64,9 +69,36 @@ class AuthController extends GetxController {
   }
 
   logout() async {
-    Get.offAndToNamed("/login");
+    await Get.offAndToNamed("/login");
     box.remove("token");
     user = UserModel.fromJson({});
+    showUserPhoto=null;
+    update();
+  }
+
+
+  selectPhoto() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? _image;
+    _image = await _picker.pickImage(source: ImageSource.gallery);
+    if (_image != null) {
+      showUserPhoto = File(_image.path);
+      update();
+    } 
+  }
+
+
+  changePhoto() async {
+    UserModel? localUser = await AuthApi().chagnePhotoAPI(showUserPhoto);
+    if(localUser.status==200){
+      user?.photo=localUser.photo;
+      showUserPhoto=null;
+      update();
+    }
+    if (localUser.status == 401) {
+      box.remove("token");
+      Get.offAndToNamed("/login");
+    }
   }
 }
 
@@ -84,19 +116,3 @@ class AuthController extends GetxController {
 
 
 
-
-
-
-  
-  // String token="sdfsdf";
-  // int count = 5;
-
-  // void plus() {
-  //   count++;
-  //   print(count);
-  //   update();
-  // }
-
-  // void mins() {
-  //   count--;
-  // }
