@@ -36,8 +36,3 @@ class ReviewController extends GetxController {
   }
 }
 
-
-
-
-
-    //await Future.delayed(Duration(seconds: 2));
