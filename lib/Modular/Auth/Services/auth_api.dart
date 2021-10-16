@@ -37,6 +37,34 @@ class AuthApi extends SharedApi {
     }
   }
 
+
+    // Sign Up API
+  Future<UserModel?> signupAPI(String phone,String firstName,String lastName, String password,String gender) async {
+    try {
+      var jsonData;
+      showLoading();
+      var data = await http.post(
+        Uri.parse(baseUrl + 'user/create'),
+        body: {'phone': phone,'firstname':firstName,'lastname':lastName, 'password': password,'gender':gender},
+      );
+      stopLoading();
+      print(data.statusCode);
+      jsonData = json.decode(data.body);
+      if (data.statusCode == 200) {
+        jsonData['user']['phone'] = phone;
+        jsonData['user']['status'] = 200;
+        return UserModel.fromJson(jsonData['user']);
+      } else {
+        showErrorMessage(jsonData['message']);
+        return UserModel.fromJson({"status": data.statusCode});
+      }
+    } on Exception catch (_) {
+      stopLoading();
+      showInternetMessage("تحقق من إتصالك بالإنترنت");
+      return UserModel.fromJson({"status": 404});
+    }
+  }
+
   // Check Token API
   Future<UserModel?> checkTokenApi(String token) async {
     try {

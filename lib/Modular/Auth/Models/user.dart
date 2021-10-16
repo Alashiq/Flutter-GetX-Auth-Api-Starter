@@ -4,7 +4,7 @@ class UserModel {
   final String? phone;
   String? firstname;
   String? lastname;
-  final int? gender;  // 1 mail - 2 fmail
+  final bool? gender;  // true mail - false fmail
   String? photo;
   final String? token;
 
@@ -12,6 +12,10 @@ class UserModel {
   UserModel({this.status,this.phone, this.firstname, this.lastname, this.gender, this.photo, this.token});
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
+    if(jsonData['gender']==1||jsonData['gender']=='1')
+    jsonData['gender']=true;
+    else
+    jsonData['gender']=false;
     return UserModel(
         status: jsonData['status'],
         phone: jsonData['phone'],

@@ -13,6 +13,7 @@ class AuthController extends GetxController {
   File? showUserPhoto;
 
   bool loginScreen = false;
+  bool signupScreen = false;
   bool startScreen = false;
   bool changePasswordScreen = false;
 
@@ -28,6 +29,20 @@ class AuthController extends GetxController {
       Get.offAndToNamed("/home");
     } else if (user!.status == 404) {
       loginScreen = true;
+      update();
+    }
+  }
+
+    Future signup(String phoneIn,String firstNameIn,String lastNameIn, String passwordIn, String genderIn) async {
+    signupScreen = false;
+    update();
+    user = await AuthApi().signupAPI(phoneIn,firstNameIn,lastNameIn, passwordIn,genderIn);
+    if (user!.status == 200) {
+      await box.write("token", user!.token);
+      update();
+      Get.offAndToNamed("/home");
+    } else if (user!.status == 404) {
+      signupScreen = true;
       update();
     }
   }
@@ -100,7 +115,9 @@ class AuthController extends GetxController {
     int status = await AuthApi().chagneNameAPI(firstName, lastName);
     if (status == 200) {
       changeName = false;
+      if(firstName != "")
       user!.firstname=firstName;
+      if(lastName != "")
       user!.lastname=lastName;
       update();
       return true;

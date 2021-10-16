@@ -73,6 +73,8 @@ class ProfileScreen extends StatelessWidget {
                                 ElevatedButton(
                                     onPressed: () {
                                       controller.changeName=true;
+                                      firstNameIn.text=controller.user!.firstname!;
+                                      lastNameIn.text=controller.user!.lastname!;
                                       controller.update();
                                     }, child: Text("edit"))
                               ],
@@ -104,8 +106,8 @@ class ProfileScreen extends StatelessWidget {
                                                             firstNameIn.text,
                                                             lastNameIn.text);
                                                             if(val==true){
-                                                              firstNameIn.text="";
-                                                              lastNameIn.text="";
+                                                              firstNameIn.text=controller.user!.firstname!;
+                                                              lastNameIn.text=controller.user!.lastname!;
                                                             }
                                                   },
                                                   child: Text("update"))),

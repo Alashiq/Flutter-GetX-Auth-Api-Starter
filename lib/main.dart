@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 import 'View/Screens/Profile/profile_screen.dart';
+import 'View/Screens/Register/register_screen.dart';
 
 void main() async {
   await GetStorage.init();
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: () => StartScreen()),
         GetPage(name: '/login', page: () => LoginScreen()),
+        GetPage(name: '/register', page: () => RegisterScreen()),
         GetPage(name: '/home', page: () => HomeScreen()),
         GetPage(name: '/profile', page: () => ProfileScreen()),
         GetPage(name: '/changePassword', page: () => ChangePasswordScreen()),
